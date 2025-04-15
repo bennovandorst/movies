@@ -31,14 +31,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Load environment variables
-        run: |
-          if [ -f .env ]; then
-            echo "Loading environment variables from .env"
-            set -a
-            . .env
-            set +a
-          fi
+      - name: Create .env file
+        run: echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" > .env
       - name: Build
         run: npm run build
       - name: Setup Pages
